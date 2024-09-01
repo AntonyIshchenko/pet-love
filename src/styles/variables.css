@@ -1,0 +1,32 @@
+:root {
+  font-family: Manrope, sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Colors*/
+  --color-white: #ffffff;
+  --color-black: #262626;
+  --color-red: #ef2447;
+  --color-green: #08aa83;
+  --color-main: #f6b83d;
+  --color-main-active: #f9b020;
+  --color-back: #fff4df;
+  --color-back-active: #fbe7c1;
+  --color-placeholder: rgba(38, 38, 38, 0.5);
+  --color-input-border: rgba(38, 38, 38, 0.15);
+  --color-pagination-border: rgba(38, 38, 38, 0.2);
+  --color-pagination-disable-border: rgba(38, 38, 38, 0.05);
+  --color-overlay: rgba(38, 38, 38, 0.3);
+  --color-female: #f43f5e;
+  --color-female-light: rgba(244, 63, 94, 0.1);
+  --color-male: #54adff;
+  --color-male-light: rgba(84, 173, 255, 0.1);
+
+  /* Animation */
+  --animation-cubicBezier: 0.3s cubic-bezier(0.7, 0.98, 0.86, 0.98);
+  --animation-easeInOut: 0.3s ease-in-out;
+}
