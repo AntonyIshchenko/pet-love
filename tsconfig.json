@@ -1,4 +1,14 @@
 {
+  "compilerOptions": {
+    "target": "ES2022",
+    "baseUrl": "src",
+    "paths": {
+      // "@/*": ["./src/*"],
+      "components/*": ["components/*"],
+      "pages/*": ["pages/*"],
+      "styles/*": ["styles/*"]
+    }
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

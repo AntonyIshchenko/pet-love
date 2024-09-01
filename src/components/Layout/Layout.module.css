@@ -1,0 +1,84 @@
+.container {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
+.homePage {
+  padding-top: 20px;
+}
+
+.commonPage {
+  padding-top: 80px;
+}
+
+.mainPage {
+  background-image: rgba(0, 0, 0, 0.3), 'images/main-mob.webp';
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-clip: border-box;
+}
+
+@media (min-resolution: 192dpi),
+  (min-resolution: 2dppx),
+  (min-device-pixel-ratio: 2) {
+  .mainPage {
+    background-image: rgba(0, 0, 0, 0.3), 'images/main-mob@2x.webp';
+  }
+}
+
+@media (min-width: 375px) {
+  .container {
+    max-width: 375px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+  }
+
+  .homePage {
+    padding-top: 32px;
+  }
+
+  .mainPage {
+    background-image: rgba(0, 0, 0, 0.3), 'images/main-tab.webp';
+  }
+
+  @media (min-resolution: 192dpi),
+    (min-resolution: 2dppx),
+    (min-device-pixel-ratio: 2) {
+    .mainPage {
+      background-image: rgba(0, 0, 0, 0.3), 'images/main-tab@2x.webp';
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+
+  .commonPage {
+    padding-top: 114px;
+  }
+
+  .mainPage {
+    background-image: rgba(0, 0, 0, 0.3), 'images/main-desk.webp';
+  }
+
+  @media (min-resolution: 192dpi),
+    (min-resolution: 2dppx),
+    (min-device-pixel-ratio: 2) {
+    .mainPage {
+      background-image: rgba(0, 0, 0, 0.3), 'images/main-desk@2x.webp';
+    }
+  }
+}

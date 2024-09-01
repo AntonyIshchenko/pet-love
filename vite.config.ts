@@ -10,9 +10,7 @@ export default defineConfig({
       components: '/src/components',
       pages: '/src/pages',
       styles: '/src/styles',
-      fonts: '/src/fonts',
-      // apiService: '/src/apiService',
-      // hooks: '/src/hooks',
     },
   },
+  base: '/',
 });
