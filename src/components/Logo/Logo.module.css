@@ -1,0 +1,45 @@
+.black {
+  color: var(--color-black);
+}
+
+.white {
+  color: var(--color-white);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 23px;
+  height: 23px;
+}
+
+.iconWhite {
+  fill: var(--color-white);
+}
+
+.iconYellow {
+  fill: var(--color-main);
+}
+
+.link {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+}
+
+.link:hover .iconYellow,
+.link:focus .iconYellow {
+  fill: var(--color-main-active);
+}
+
+@media (min-width: 768px) {
+  .link {
+    font-size: 28px;
+  }
+}
