@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
-import { Icon } from 'components';
-import { useLocationType } from '../../types';
+import useLocationType from '@types-all/useLocationType';
+import Icon from '@components/Icon/Icon';
 import css from './Logo.module.css';
 
 function Logo() {

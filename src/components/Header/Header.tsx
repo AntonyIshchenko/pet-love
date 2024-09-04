@@ -1,5 +1,7 @@
-import { Logo } from 'components';
+// import React from 'react';
+// import Logo from '@components/Logo';
 import css from './Header.module.css';
+import Logo from '@components/Logo/Logo';
 
 type Props = {};
 

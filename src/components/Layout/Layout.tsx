@@ -2,7 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import { useLocation } from 'react-router-dom';
 
-import { useLocationType } from '../../types';
+import useLocationType from '@types-all/useLocationType';
+
 import css from './Layout.module.css';
 
 type Props = {

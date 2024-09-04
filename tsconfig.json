@@ -1,13 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "baseUrl": "src",
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "baseUrl": ".",
     "paths": {
-      // "@/*": ["./src/*"],
-      "components/*": ["components/*"],
-      "icons/*": ["icons/*"]
-    }
+      "@components/*": ["src/components/*"],
+      "@icons/*": ["src/icons/*"],
+      "@images/*": ["src/images/*"],
+      "@pages/*": ["src/pages/*"],
+      "@types-all/*": ["src/types/*"]
+    },
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+
+    "composite": true
   },
+  "include": ["src/**/*"],
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

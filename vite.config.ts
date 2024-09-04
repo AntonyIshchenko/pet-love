@@ -7,9 +7,12 @@ export default defineConfig({
   build: { sourcemap: true },
   resolve: {
     alias: {
-      components: '/src/components',
-      icons: '/src/icons',
+      '@components': '/src/components',
+      '@icons': '/src/icons',
+      '@images': '/src/images',
+      '@pages': '/src/pages',
+      '@types-all': '/src/types',
     },
   },
-  base: '/',
+  // base: '/',
 });

@@ -1,4 +1,4 @@
-import { sprite } from 'icons';
+import sprite from '@icons/sprite.svg';
 
 type Props = {
   name: string;

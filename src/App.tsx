@@ -1,16 +1,20 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { Header, Layout, PrivateRoute, RestrictedRoute } from 'components';
 
-const HomePage = lazy(() => import('./pages/Home/Home.tsx'));
-const NewsPage = lazy(() => import('./pages/News/News.tsx'));
-const NoticesPage = lazy(() => import('./pages/Notices/Notices.tsx'));
-const FriendsPage = lazy(() => import('./pages/Friends/Friends.tsx'));
-const RegisterPage = lazy(() => import('./pages/Register/Register.tsx'));
-const LoginPage = lazy(() => import('./pages/Login/Login.tsx'));
-const ProfilePage = lazy(() => import('./pages/Profile/Profile.tsx'));
-const AddPetPage = lazy(() => import('./pages/AddPet/AddPet.tsx'));
-const NotFoundPage = lazy(() => import('./pages/NotFound/NotFound.tsx'));
+import Header from '@components/Header/Header';
+import Layout from '@components/Layout/Layout';
+import PrivateRoute from '@components/PrivateRoute/PrivateRoute';
+import RestrictedRoute from '@components/RestrictedRoute/RestrictedRoute';
+
+const HomePage = lazy(() => import('@pages/Home/Home'));
+const NewsPage = lazy(() => import('@pages/News/News'));
+const NoticesPage = lazy(() => import('@pages/Notices/Notices'));
+const FriendsPage = lazy(() => import('@pages/Friends/Friends'));
+const RegisterPage = lazy(() => import('@pages/Register/Register'));
+const LoginPage = lazy(() => import('@pages/Login/Login'));
+const ProfilePage = lazy(() => import('@pages/Profile/Profile'));
+const AddPetPage = lazy(() => import('@pages/AddPet/AddPet'));
+const NotFoundPage = lazy(() => import('@pages/NotFound/NotFound'));
 
 function App() {
   return (
