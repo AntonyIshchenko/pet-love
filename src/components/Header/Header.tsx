@@ -1,5 +1,6 @@
 // import React from 'react';
 // import Logo from '@components/Logo';
+import Nav from '@components/Nav/Nav';
 import css from './Header.module.css';
 import Logo from '@components/Logo/Logo';
 
@@ -9,6 +10,7 @@ function Header({}: Props) {
   return (
     <header>
       <Logo />
+      <Nav />
     </header>
   );
 }
