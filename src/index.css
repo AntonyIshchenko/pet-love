@@ -2,3 +2,8 @@
 @import '../node_modules/modern-normalize/modern-normalize.css';
 @import './styles/fonts.css';
 @import './styles/variables.css';
+
+main {
+  height: 100vh;
+  background-color: var(--color-white);
+}

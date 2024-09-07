@@ -1,16 +1,18 @@
 .container {
   width: 100%;
+  height: 100%;
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 20px;
 }
 
 .homePage {
-  padding-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .commonPage {
   padding-top: 80px;
+  padding-bottom: 20px;
 }
 
 .mainPage {
@@ -41,14 +43,20 @@
     max-width: 768px;
     padding-left: 32px;
     padding-right: 32px;
+  }
+
+  .commonPage {
+    padding-top: 114px;
     padding-bottom: 32px;
   }
 
   .homePage {
-    padding-top: 32px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 
   .mainPage {
+    padding-bottom: 32px;
     background-image: rgba(0, 0, 0, 0.3), 'images/main-tab.webp';
   }
 
@@ -64,10 +72,6 @@
 @media (min-width: 1280px) {
   .container {
     max-width: 1280px;
-  }
-
-  .commonPage {
-    padding-top: 114px;
   }
 
   .mainPage {

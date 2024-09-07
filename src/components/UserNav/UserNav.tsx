@@ -1,21 +1,31 @@
-import { NavLink } from 'react-router-dom';
 import css from './UserNav.module.css';
+import UserBar from '@components/UserBar/UserBar';
+import LogOutBtn from '@components/LogOutBtn/LogOutBtn';
+import useMediaType from '@types-all/useMediaType';
+import useMedia from '@hooks/useMedia';
+import useHomePageLocation from '@hooks/useHomePageLocation';
 
-type Props = {};
+type Props = {
+  isMenu?: boolean;
+};
 
-function UserNav({}: Props) {
+function UserNav({ isMenu = false }: Props) {
+  const { isDesktop }: useMediaType = useMedia();
+  const isHomePage: boolean = useHomePageLocation();
+
   return (
     <nav>
-      <ul>
-        <li>
-          <NavLink to={'/news'}>News</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/notices'}>Find pet</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/friends'}>Our friends</NavLink>
-        </li>
+      <ul className={css.list}>
+        {((isDesktop && !isHomePage) || isMenu) && (
+          <li>
+            <LogOutBtn />
+          </li>
+        )}
+        {!isMenu && (
+          <li>
+            <UserBar />
+          </li>
+        )}
       </ul>
     </nav>
   );

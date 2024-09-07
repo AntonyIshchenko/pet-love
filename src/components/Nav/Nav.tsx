@@ -30,7 +30,7 @@ function Nav() {
 
   return (
     <nav>
-      <ul className={css.list} role="list">
+      <ul className={css.list}>
         <li>
           <NavLink className={getLinkClass} to={'/news'}>
             News

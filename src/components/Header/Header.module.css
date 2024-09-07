@@ -1,0 +1,89 @@
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.container {
+  max-width: 375px;
+  margin: 0 auto;
+  padding-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.containerMain {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.containerHome {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.rightNav {
+  display: flex;
+  gap: 12px;
+}
+
+.menuBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: stroke var(--animation-cubicBezier);
+}
+
+.menuBtnBlack {
+  stroke: var(--color-black);
+}
+
+.menuBtnBlack:hover,
+.menuBtnBlack:focus {
+  stroke: var(--color-main);
+}
+
+.menuBtnWhite {
+  stroke: var(--color-white);
+}
+
+.menuBtnWhite:hover,
+.menuBtnWhite:focus {
+  stroke: var(--color-main-active);
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding-top: 32px;
+  }
+
+  .containerMain {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .containerHome {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+
+  .rightNav {
+    gap: 18px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+  .containerMain {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+  .containerHome {
+    padding-left: 96px;
+    padding-right: 96px;
+  }
+}
