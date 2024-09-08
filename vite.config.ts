@@ -13,6 +13,7 @@ export default defineConfig({
       '@images': '/src/images',
       '@pages': '/src/pages',
       '@types-all': '/src/types',
+      '@utils': '/src/utils',
     },
   },
   // base: '/',

@@ -1,0 +1,23 @@
+.list {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .list {
+    margin-top: 44px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 768px) {
+  .list {
+    margin-top: 60px;
+    row-gap: 28px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}

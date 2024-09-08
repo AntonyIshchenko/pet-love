@@ -2,6 +2,7 @@
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 10;
   width: 100%;
 }
 
@@ -9,6 +10,7 @@
   max-width: 375px;
   margin: 0 auto;
   padding-top: 28px;
+  padding-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,7 +19,9 @@
 .containerMain {
   padding-left: 20px;
   padding-right: 20px;
+  background-color: var(--color-white-bg);
 }
+
 .containerHome {
   padding-left: 40px;
   padding-right: 40px;
@@ -58,6 +62,7 @@
   .container {
     max-width: 768px;
     padding-top: 32px;
+    padding-bottom: 32px;
   }
 
   .containerMain {

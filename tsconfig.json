@@ -10,7 +10,8 @@
       "@icons/*": ["src/icons/*"],
       "@images/*": ["src/images/*"],
       "@pages/*": ["src/pages/*"],
-      "@types-all/*": ["src/types/*"]
+      "@types-all/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"]
     },
     "jsx": "react-jsx",
     "esModuleInterop": true,

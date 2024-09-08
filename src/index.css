@@ -4,6 +4,24 @@
 @import './styles/variables.css';
 
 main {
-  height: 100vh;
-  background-color: var(--color-white);
+  background-color: var(--color-white-bg);
 }
+
+/* Customize scrollbar*/
+
+/* ul::-webkit-scrollbar {
+  background: var(--color-input-border);
+  width: 8px;
+  border-radius: 8px;
+} */
+
+/* Handle */
+/* ul::-webkit-scrollbar-thumb {
+  background: var(--color-main);
+  border-radius: 8px;
+} */
+
+/* Handle on hover */
+/* ul::-webkit-scrollbar-thumb:hover {
+  background: var(--color-main-active);
+} */

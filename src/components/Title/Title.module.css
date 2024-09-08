@@ -1,0 +1,27 @@
+.title {
+  position: sticky;
+  top: 80px;
+  z-index: 5;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+  color: var(--color-black);
+  margin-top: 34px;
+  background-color: var(--color-white-bg);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 54px;
+    margin-top: 53px;
+    top: 114px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .title {
+    padding-left: 32px;
+    margin-top: 64px;
+  }
+}
