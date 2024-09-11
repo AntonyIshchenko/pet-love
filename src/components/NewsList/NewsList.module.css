@@ -1,0 +1,21 @@
+.list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .list {
+    row-gap: 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .list {
+    padding-left: 32px;
+    padding-right: 32px;
+    row-gap: 40px;
+    column-gap: 35px;
+  }
+}
