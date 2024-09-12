@@ -3,6 +3,8 @@ import css from './News.module.css';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import NewsList from '@components/NewsList/NewsList';
+import Title from '@components/Title/Title';
+import SearchField from '@components/SearchField/SearchField';
 
 function News() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,7 +22,10 @@ function News() {
 
   return (
     <>
-      <div>News page</div>
+      <div className={css.titleContainer}>
+        <Title>News</Title>
+        <SearchField {...{ setKeyword }} />
+      </div>
       {data?.results && <NewsList list={data.results} />}
       <button onClick={handleClick}> new++</button>
     </>
