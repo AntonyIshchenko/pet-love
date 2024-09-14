@@ -1,4 +1,8 @@
 .titleContainer {
+  position: sticky;
+  top: 80px;
+  z-index: 5;
+  background-color: var(--color-white-bg);
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -10,6 +14,7 @@
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 44px;
+    top: 60px;
   }
 }
 
@@ -17,5 +22,6 @@
   .titleContainer {
     padding-right: 32px;
     margin-bottom: 60px;
+    top: 50px;
   }
 }
