@@ -1,33 +1,59 @@
-import { useGetNewsQuery } from '@utils/api';
-import css from './News.module.css';
-import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
+import css from './News.module.css';
+import { useGetNewsQuery } from '@utils/api';
 import NewsList from '@components/NewsList/NewsList';
 import Title from '@components/Title/Title';
 import SearchField from '@components/SearchField/SearchField';
+import Pagination from '@components/Pagination/Pagination';
+
+type SearchParams = {
+  page?: string;
+  keyword?: string;
+};
 
 function News() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(
-    (searchParams.get('page') && Number(searchParams.get('page'))) || 1
-  );
-  const [keyword, setKeyword] = useState(searchParams.get('keyword') || '');
+  const params: SearchParams = Object.fromEntries([...searchParams]);
+
+  const [page, setPage] = useState((params.page && Number(params.page)) || 1);
+  const [keyword, setKeyword] = useState(params.keyword || '');
+
   const { data } = useGetNewsQuery({ page, ...(keyword && { keyword }) });
 
-  const handleClick = () => {
-    setPage(page + 1);
-    searchParams.set('page', page + 1 + '');
-    // data.refetch({ page, ...(keyword && { keyword }) });
+  const onChangePagination = (p: number): void => {
+    setPage(p);
+    setSearchParams({
+      ...(p > 1 && { page: String(p) }),
+      ...(keyword && { keyword }),
+    });
   };
+
+  const onChangeKeyword = (k: string): void => {
+    setPage(1);
+    setKeyword(k);
+    setSearchParams({
+      ...(k && { keyword: k }),
+    });
+  };
+
+  const totalPages = data?.totalPages ?? 0;
 
   return (
     <>
       <div className={css.titleContainer}>
         <Title>News</Title>
-        <SearchField {...{ setKeyword }} />
+        <SearchField {...{ keyword, onChangeKeyword }} />
       </div>
       {data?.results && <NewsList list={data.results} />}
-      <button onClick={handleClick}> new++</button>
+      {totalPages > 1 && (
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onChange={onChangePagination}
+        />
+      )}
     </>
   );
 }

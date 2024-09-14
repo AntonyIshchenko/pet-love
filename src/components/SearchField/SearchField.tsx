@@ -1,37 +1,48 @@
 import { useState } from 'react';
+
 import css from './SearchField.module.css';
-import { log } from 'console';
 import Icon from '@components/Icon/Icon';
 
 type Props = {
-  setKeyword: (value: string) => void;
+  keyword: string;
+  onChangeKeyword: (value: string) => void;
 };
 
-function SearchField({ setKeyword }: Props) {
-  const [isFilled, setIsFilled] = useState(false);
+function SearchField({ keyword, onChangeKeyword }: Props) {
+  const [value, setValue] = useState(keyword);
+  const [isFilled, setIsFilled] = useState(!!keyword);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const value = event.target.elements.search.value.trim();
-    setKeyword(value);
+    onChangeKeyword(value.trim());
+  };
+
+  const handleReset = () => {
+    setValue('');
+    setIsFilled(false);
+    onChangeKeyword('');
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.trim();
-    if ((value && !isFilled) || (!value && isFilled)) {
+    const inputValue = event.target.value;
+    const trimmed = inputValue.trim();
+
+    setValue(inputValue);
+    if ((trimmed && !isFilled) || (!trimmed && isFilled)) {
       setIsFilled(!isFilled);
     }
   };
 
   return (
-    <form className={css.form} onSubmit={handleSubmit}>
+    <form className={css.form} onSubmit={handleSubmit} onReset={handleReset}>
       <input
         className={css.input}
         name="search"
         type="text"
         placeholder="Search"
         onChange={handleChange}
+        value={value}
       />
       {isFilled && (
         <button type="reset" className={css.resetBtn}>

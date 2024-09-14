@@ -7,7 +7,6 @@ type Props = {
 };
 
 function NewsList({ list = [] }: Props) {
-  console.log(list);
   return (
     <ul className={css.list}>
       {list.map((item) => (
