@@ -19,6 +19,7 @@ function News() {
 
   const [page, setPage] = useState((params.page && Number(params.page)) || 1);
   const [keyword, setKeyword] = useState(params.keyword || '');
+  const [search, setSearch] = useState(params.keyword || '');
 
   const { data } = useGetNewsQuery({ page, ...(keyword && { keyword }) });
 
@@ -38,13 +39,35 @@ function News() {
     });
   };
 
+  const handleReset = (): void => {
+    setSearch('');
+    onChangeKeyword('');
+  };
+
+  const handleSubmit = (event: React.FormEvent): void => {
+    event.preventDefault();
+
+    onChangeKeyword(search.trim());
+  };
+
   const totalPages = data?.totalPages ?? 0;
 
   return (
     <>
       <div className={css.titleContainer}>
         <Title>News</Title>
-        <SearchField {...{ keyword, onChangeKeyword }} />
+        <form
+          className={css.form}
+          onSubmit={handleSubmit}
+          onReset={handleReset}
+        >
+          <SearchField
+            value={search}
+            wrapClassName={css.search}
+            onChange={setSearch}
+            onReset={handleReset}
+          />
+        </form>
       </div>
       {data?.results && <NewsList list={data.results} />}
       {totalPages > 1 && (

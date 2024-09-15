@@ -2,40 +2,49 @@ import { useState } from 'react';
 
 import css from './SearchField.module.css';
 import Icon from '@components/Icon/Icon';
+import clsx from 'clsx';
 
 type Props = {
-  keyword: string;
-  onChangeKeyword: (value: string) => void;
+  value: string;
+  wrapClassName?: string;
+
+  onReset?: () => void;
+  onSubmit?: (e: React.FormEvent) => void;
+  onChange?: (v: string) => void;
 };
 
-function SearchField({ keyword, onChangeKeyword }: Props) {
-  const [value, setValue] = useState(keyword);
-  const [isFilled, setIsFilled] = useState(!!keyword);
+function SearchField({
+  value,
+  wrapClassName,
+  onReset,
+  onSubmit,
+  onChange,
+}: Props) {
+  const [isFilled, setIsFilled] = useState(!!value);
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    onChangeKeyword(value.trim());
+    if (onSubmit) onSubmit(event);
   };
 
   const handleReset = () => {
-    setValue('');
     setIsFilled(false);
-    onChangeKeyword('');
+
+    if (onReset) onReset();
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     const trimmed = inputValue.trim();
 
-    setValue(inputValue);
     if ((trimmed && !isFilled) || (!trimmed && isFilled)) {
       setIsFilled(!isFilled);
     }
+
+    if (onChange) onChange(inputValue);
   };
 
   return (
-    <form className={css.form} onSubmit={handleSubmit} onReset={handleReset}>
+    <div className={clsx(css.inputWrap, wrapClassName)}>
       <input
         className={css.input}
         name="search"
@@ -45,14 +54,14 @@ function SearchField({ keyword, onChangeKeyword }: Props) {
         value={value}
       />
       {isFilled && (
-        <button type="reset" className={css.resetBtn}>
-          <Icon name="x" width={18} height={18} />
+        <button type="reset" className={css.resetBtn} onClick={handleReset}>
+          <Icon name="x" width={12} height={12} />
         </button>
       )}
-      <button type="submit" className={css.submitBtn}>
+      <button type="submit" className={css.submitBtn} onClick={handleSubmit}>
         <Icon name="search" width={18} height={18} />
       </button>
-    </form>
+    </div>
   );
 }
 

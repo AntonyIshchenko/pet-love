@@ -6,7 +6,8 @@ import getNoticesQueryParams from '@types-all/getNoticesQueryParamsType copy';
 const PAG_LIMIT = 6;
 const BASE_URL = 'https://petlove.b.goit.study/api/';
 
-const api = createApi({
+export const api = createApi({
+  reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getFriends: builder.query({
@@ -24,9 +25,25 @@ const api = createApi({
         params: { limit: PAG_LIMIT, ...queryParams },
       }),
     }),
+    getCities: builder.query<void, void>({
+      query: () => `cities/`,
+    }),
+    getCategories: builder.query<void, void>({
+      query: () => `notices/categories/`,
+    }),
+    getSpecies: builder.query<void, void>({
+      query: () => `notices/species/`,
+    }),
   }),
+  keepUnusedDataFor: 60,
+  refetchOnMountOrArgChange: true,
 });
 
-export default api;
-
-export const { useGetFriendsQuery, useGetNewsQuery, useGetNoticesQuery } = api;
+export const {
+  useGetFriendsQuery,
+  useGetNewsQuery,
+  useGetNoticesQuery,
+  useLazyGetCitiesQuery,
+  useLazyGetCategoriesQuery,
+  useLazyGetSpeciesQuery,
+} = api;

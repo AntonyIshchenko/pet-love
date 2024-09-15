@@ -1,10 +1,18 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
 import Header from '@components/Header/Header';
 import Layout from '@components/Layout/Layout';
 import PrivateRoute from '@components/PrivateRoute/PrivateRoute';
 import RestrictedRoute from '@components/RestrictedRoute/RestrictedRoute';
+import { useDispatch } from 'react-redux';
+import {
+  useLazyGetCategoriesQuery,
+  useLazyGetCitiesQuery,
+  useLazyGetSpeciesQuery,
+} from '@utils/api';
+import { useSelector } from 'react-redux';
+import { commonActions, commonSelectors } from '@redux/common';
 
 const HomePage = lazy(() => import('@pages/Home/Home'));
 const NewsPage = lazy(() => import('@pages/News/News'));
@@ -17,6 +25,54 @@ const AddPetPage = lazy(() => import('@pages/AddPet/AddPet'));
 const NotFoundPage = lazy(() => import('@pages/NotFound/NotFound'));
 
 function App() {
+  const dispatch = useDispatch();
+  const isCategoriesFetched = useSelector(commonSelectors.isCategoriesFetched);
+  const isCitiesFetched = useSelector(commonSelectors.isCitiesFetched);
+  const isSpeciesFetched = useSelector(commonSelectors.isSpeciesFetched);
+
+  const [
+    triggerGetCategories,
+    {
+      data: categoriesData,
+      error: categoriesError,
+      isFetching: isFetchingCategories,
+    },
+  ] = useLazyGetCategoriesQuery();
+
+  const [
+    triggerGetSpecies,
+    { data: speciesData, error: speciesError, isFetching: isFetchingSpecies },
+  ] = useLazyGetSpeciesQuery();
+
+  const [
+    triggerGetCities,
+    { data: citiesData, error: citiesError, isFetching: isFetchingCities },
+  ] = useLazyGetCitiesQuery();
+
+  useEffect(() => {
+    if (categoriesData) dispatch(commonActions.setCategories(categoriesData));
+  }, [dispatch, categoriesData]);
+
+  useEffect(() => {
+    if (!isCategoriesFetched) triggerGetCategories();
+  }, [isCategoriesFetched, triggerGetCategories]);
+
+  useEffect(() => {
+    if (citiesData) dispatch(commonActions.setCities(citiesData));
+  }, [dispatch, citiesData]);
+
+  useEffect(() => {
+    if (!isCitiesFetched) triggerGetCities();
+  }, [isCitiesFetched, triggerGetCities]);
+
+  useEffect(() => {
+    if (speciesData) dispatch(commonActions.setSpecies(speciesData));
+  }, [dispatch, speciesData]);
+
+  useEffect(() => {
+    if (!isSpeciesFetched) triggerGetSpecies();
+  }, [isSpeciesFetched, triggerGetSpecies]);
+
   return (
     <>
       <Header />

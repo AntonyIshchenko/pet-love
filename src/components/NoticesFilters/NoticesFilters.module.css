@@ -1,0 +1,128 @@
+.form {
+  border-radius: 30px;
+  padding: 20px;
+  margin-top: 40px;
+  width: 100%;
+  background: var(--color-back);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(38, 38, 38, 0.1);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filtersSearch {
+  width: 100%;
+}
+
+.filtersSearch input {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.sorting {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sortingContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+}
+
+.sortingLabel {
+  color: var(--color-black);
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  background-color: var(--color-white);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  text-transform: capitalize;
+
+  cursor: pointer;
+
+  transition: color var(--animation-cubicBezier),
+    background-color var(--animation-cubicBezier);
+}
+
+.sortingLabel:hover {
+  color: var(--color-white);
+  background-color: var(--color-main);
+}
+
+.sortingInput:checked + .sortingLabel {
+  color: var(--color-white);
+  background-color: var(--color-main);
+}
+
+.sortingIcon {
+  display: none;
+  stroke: var(--color-white);
+}
+
+.sortingInput:checked + .sortingLabel .sortingIcon {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .form {
+    padding: 40px 32px;
+    margin-top: 44px;
+  }
+
+  .filters {
+    gap: 16px;
+  }
+
+  .filtersSearch {
+    width: 265px;
+  }
+  .sorting {
+    gap: 8px;
+  }
+
+  .sortingContainer {
+    height: 48px;
+  }
+
+  .sortingLabel {
+    height: 48px;
+    font-size: 16px;
+    line-height: 125%;
+    padding: 14px;
+    gap: 8px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .form {
+    padding: 40px;
+    margin-top: 40px;
+  }
+}

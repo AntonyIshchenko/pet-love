@@ -12,6 +12,7 @@ export default defineConfig({
       '@icons': '/src/icons',
       '@images': '/src/images',
       '@pages': '/src/pages',
+      '@redux': '/src/redux',
       '@types-all': '/src/types',
       '@utils': '/src/utils',
     },

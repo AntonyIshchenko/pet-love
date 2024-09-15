@@ -1,6 +1,5 @@
-.form {
+.inputWrap {
   position: relative;
-  width: 100%;
 }
 
 .input {
@@ -50,8 +49,8 @@
 
 .resetBtn {
   position: absolute;
-  bottom: 12px;
-  right: 34px;
+  bottom: 15px;
+  right: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,10 +66,6 @@
 }
 
 @media (min-width: 768px) {
-  .form {
-    width: 230px;
-  }
-
   .input {
     height: 48px;
     padding: 14px 58px 14px 14px;
@@ -84,6 +79,6 @@
   }
 
   .resetBtn {
-    bottom: 15px;
+    bottom: 18px;
   }
 }

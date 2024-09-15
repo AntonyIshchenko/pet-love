@@ -9,12 +9,24 @@
   margin-bottom: 24px;
 }
 
+.form {
+  width: 100%;
+}
+
+.search {
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .titleContainer {
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 44px;
     top: 60px;
+  }
+
+  .form {
+    width: 230px;
   }
 }
 
