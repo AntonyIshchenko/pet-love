@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-import css from './Notices.module.css';
+// import css from './Notices.module.css';
 import { useGetNoticesQuery } from '@utils/api';
 import Title from '@components/Title/Title';
 import Pagination from '@components/Pagination/Pagination';
@@ -10,9 +10,7 @@ import NoticesFilters from '@components/NoticesFilters/NoticesFilters';
 import sortingUtils from '@utils/filtersSorting';
 import { filtersChangedType } from '@types-all/filtersChangedType';
 
-type Props = {};
-
-function Notices({}: Props) {
+function Notices() {
   const [searchParams, setSearchParams] = useSearchParams();
   const params = Object.fromEntries([...searchParams]);
 
@@ -26,28 +24,49 @@ function Notices({}: Props) {
     sortingUtils.getSortingFromQuery(params)
   );
 
-  const { data } = useGetNoticesQuery({ page, ...(keyword && { keyword }) });
+  const { data } = useGetNoticesQuery({
+    page,
+    ...(keyword && { keyword }),
+    // ...(sorting && sortingUtils.getQueryFromSorting(sorting)),
+  });
 
   const onChangePagination = (p: number): void => {
     setPage(p);
+
     setSearchParams({
       ...(p > 1 && { page: String(p) }),
-      // ...(keyword && { keyword }),
+      ...(keyword && { keyword }),
+      ...(category && { category }),
+      ...(species && { species }),
+      ...(locationId && { locationId }),
+      ...(sorting && sortingUtils.getQueryFromSorting(sorting)),
     });
   };
 
   const onChangeFilters = (changes: filtersChangedType): void => {
     const [key, value] = Object.entries(changes)[0];
 
-    let newSerachParams = {
+    let newSearchParams = {
       ...(page > 1 && { page: String(page) }),
     };
 
     switch (key) {
+      case 'keyword':
+        setKeyword(value);
+        newSearchParams = {
+          ...newSearchParams,
+          ...(value && { keyword: value }),
+          ...(category && { category }),
+          ...(species && { species }),
+          ...(locationId && { locationId }),
+          ...(sorting && sortingUtils.getQueryFromSorting(sorting)),
+        };
+        break;
       case 'category':
         setCategory(value);
-        newSerachParams = {
-          ...newSerachParams,
+        newSearchParams = {
+          ...newSearchParams,
+          ...(keyword && { keyword }),
           ...(value && { category: value }),
           ...(species && { species }),
           ...(locationId && { locationId }),
@@ -56,8 +75,9 @@ function Notices({}: Props) {
         break;
       case 'species':
         setSpecies(value);
-        newSerachParams = {
-          ...newSerachParams,
+        newSearchParams = {
+          ...newSearchParams,
+          ...(keyword && { keyword }),
           ...(category && { category }),
           ...(value && { species: value }),
           ...(locationId && { locationId }),
@@ -66,8 +86,9 @@ function Notices({}: Props) {
         break;
       case 'locationId':
         setLocationId(value);
-        newSerachParams = {
-          ...newSerachParams,
+        newSearchParams = {
+          ...newSearchParams,
+          ...(keyword && { keyword }),
           ...(category && { category }),
           ...(species && { species }),
           ...(value && { locationId: value }),
@@ -76,8 +97,9 @@ function Notices({}: Props) {
         break;
       case 'sorting':
         setSorting(value);
-        newSerachParams = {
-          ...newSerachParams,
+        newSearchParams = {
+          ...newSearchParams,
+          ...(keyword && { keyword }),
           ...(category && { category }),
           ...(species && { species }),
           ...(locationId && { locationId }),
@@ -88,13 +110,14 @@ function Notices({}: Props) {
         return;
     }
 
-    setSearchParams(newSerachParams);
+    setSearchParams(newSearchParams);
   };
 
   // console.log(data);
+
   const filtersState = useMemo(
-    () => ({ category, species, locationId, sorting }),
-    [category, species, locationId, sorting]
+    () => ({ keyword, category, species, locationId, sorting }),
+    [keyword, category, species, locationId, sorting]
   );
 
   const totalPages = data?.totalPages ?? 0;

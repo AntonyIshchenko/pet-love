@@ -1,36 +1,30 @@
-type NoticesSearchParamsUrl = {
+type NoticesSearchParamsObj = {
   byDate?: string;
   byPrice?: string;
   byPopularity?: string;
 };
 
-type NoticesSearchParamsObj = {
-  byDate?: boolean;
-  byPrice?: boolean;
-  byPopularity?: boolean;
-};
-
-function getSortingFromQuery(params: NoticesSearchParamsUrl): string {
+function getSortingFromQuery(params: NoticesSearchParamsObj): string {
   let name, value;
   if (params.byDate) {
     name = 'byDate';
-    value = params.byDate;
+    value = params.byDate.toLowerCase();
   } else if (params.byPrice) {
     name = 'byPrice';
-    value = params.byPrice;
+    value = params.byPrice.toLowerCase();
   } else if (params.byPopularity) {
     name = 'byPopularity';
-    value = params.byPopularity;
+    value = params.byPopularity.toLowerCase();
   } else return '';
 
-  return `${name}-${value.toLowerCase() === 'true' ? 1 : 0}`;
+  return `${name}-${value}`;
 }
 
 function getQueryFromSorting(value: string): NoticesSearchParamsObj {
   if (value === '') return {};
 
   const valueArr = value.split('-');
-  return { [valueArr[0]]: Boolean(valueArr[1]) };
+  return { [valueArr[0]]: valueArr[1] };
 }
 
 export default {

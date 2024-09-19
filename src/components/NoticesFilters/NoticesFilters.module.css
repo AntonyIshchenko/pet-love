@@ -45,6 +45,9 @@
   justify-content: center;
   height: 42px;
 }
+.sortingContainer:focus-within {
+  outline: auto;
+}
 
 .sortingLabel {
   color: var(--color-black);

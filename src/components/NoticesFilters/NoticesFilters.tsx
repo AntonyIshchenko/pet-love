@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import css from './NoticesFilters.module.css';
 import clsx from 'clsx';
 import Icon from '@components/Icon/Icon';
@@ -7,19 +7,24 @@ import { useSelector } from 'react-redux';
 import { commonSelectors } from '@redux/common';
 import { filtersChangedType } from '@types-all/filtersChangedType';
 
+type FiltersState = {
+  keyword: string;
+  category: string;
+  species: string;
+  locationId: string;
+  sorting: string;
+};
+
 type Props = {
-  filtersState: {
-    category: string;
-    species: string;
-    locationId: string;
-    sorting: string;
-  };
+  filtersState: FiltersState;
   onChangeFilters: (changes: filtersChangedType) => void;
 };
 
 type SortingItemProps = {
   label: string;
   value: string;
+  filtersState: FiltersState;
+  onChangeFilters: (changes: filtersChangedType) => void;
 };
 
 function NoticesFilters({ filtersState, onChangeFilters }: Props) {
@@ -27,13 +32,27 @@ function NoticesFilters({ filtersState, onChangeFilters }: Props) {
   const categoriesList = useSelector(commonSelectors.categories);
   const citiesList = useSelector(commonSelectors.cities);
 
+  const [search, setSearch] = useState(filtersState.keyword);
+
   return (
     <form className={css.form}>
       <div className={css.filters}>
-        <SearchField value={'dog'} wrapClassName={css.filtersSearch} />
+        <SearchField
+          value={search}
+          wrapClassName={css.filtersSearch}
+          onChange={setSearch}
+          onReset={() => {
+            setSearch('');
+            onChangeFilters({ keyword: '' });
+          }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            onChangeFilters({ keyword: search });
+          }}
+        />
         {/* <input type="select" name="category" placeholder="category" /> */}
         <select name="category" id="">
-          <option value="default">Show all</option>
+          <option value="">Show all</option>
           <option value="sell">sell</option>
           <option value="free">free</option>
           <option value="lost">lost</option>
@@ -44,13 +63,36 @@ function NoticesFilters({ filtersState, onChangeFilters }: Props) {
       </div>
       <div className={css.divider} />
       <div className={css.sorting}>
-        <NoticesFilters_SortingItem label="popular" value="byPopularity-1" />
-        <NoticesFilters_SortingItem label="unpopular" value="byPopularity-0" />
-        <NoticesFilters_SortingItem label="cheap" value="byPrice-0" />
-        <NoticesFilters_SortingItem label="expensive" value="byPrice-1" />
-        <NoticesFilters_SortingItem label="earliest" value="byDate-0" />
-        <NoticesFilters_SortingItem label="latest" value="byDate-1" />
-        <NoticesFilters_SortingItem label="default" value="" />
+        <NoticesFilters_SortingItem
+          label="popular"
+          value="byPopularity-true"
+          {...{ filtersState, onChangeFilters }}
+        />
+        <NoticesFilters_SortingItem
+          label="unpopular"
+          value="byPopularity-false"
+          {...{ filtersState, onChangeFilters }}
+        />
+        <NoticesFilters_SortingItem
+          label="cheap"
+          value="byPrice-false"
+          {...{ filtersState, onChangeFilters }}
+        />
+        <NoticesFilters_SortingItem
+          label="expensive"
+          value="byPrice-true"
+          {...{ filtersState, onChangeFilters }}
+        />
+        <NoticesFilters_SortingItem
+          label="earliest"
+          value="byDate-false"
+          {...{ filtersState, onChangeFilters }}
+        />
+        <NoticesFilters_SortingItem
+          label="latest"
+          value="byDate-true"
+          {...{ filtersState, onChangeFilters }}
+        />
       </div>
     </form>
   );
@@ -58,7 +100,12 @@ function NoticesFilters({ filtersState, onChangeFilters }: Props) {
 
 export default NoticesFilters;
 
-function NoticesFilters_SortingItem({ label, value }: SortingItemProps) {
+function NoticesFilters_SortingItem({
+  label,
+  value,
+  filtersState,
+  onChangeFilters,
+}: SortingItemProps) {
   const itemId = useId();
 
   return (
@@ -71,12 +118,18 @@ function NoticesFilters_SortingItem({ label, value }: SortingItemProps) {
         id={itemId}
         name="sorting"
         value={value}
+        checked={filtersState.sorting === value}
+        onChange={(event) => onChangeFilters({ sorting: event.target.value })}
       />
       <label className={css.sortingLabel} htmlFor={itemId}>
         {label}
-        <span className={css.sortingIcon}>
+        <button
+          type="button"
+          className={css.sortingIcon}
+          onClick={() => onChangeFilters({ sorting: '' })}
+        >
           <Icon name="x" width={12} height={12} />
-        </span>
+        </button>
       </label>
     </div>
   );
