@@ -122,7 +122,7 @@ function calculatePageRange(
   totalPages: number
 ): { pageRange: number; itemClasses: string[] } {
   let pageRange;
-  const itemClasses = [];
+  let itemClasses = [];
 
   if (isMobile) {
     switch (page) {
@@ -148,6 +148,8 @@ function calculatePageRange(
         itemClasses.push(`${css.hideLastLink}`);
         break;
     }
+
+    if (totalPages < 4) itemClasses = [];
   } else {
     switch (page) {
       case 1:
@@ -180,6 +182,8 @@ function calculatePageRange(
         itemClasses.push(`${css.hideLastLink}`);
         break;
     }
+
+    if (totalPages < 6) itemClasses = [];
   }
 
   return { pageRange, itemClasses };

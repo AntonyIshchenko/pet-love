@@ -25,9 +25,12 @@ function Notices() {
   );
 
   const { data } = useGetNoticesQuery({
-    page,
+    ...(page > 1 && { page: String(page) }),
     ...(keyword && { keyword }),
-    // ...(sorting && sortingUtils.getQueryFromSorting(sorting)),
+    ...(category && { category }),
+    ...(species && { species }),
+    ...(locationId && { locationId }),
+    ...(sorting && sortingUtils.getQueryFromSorting(sorting)),
   });
 
   const onChangePagination = (p: number): void => {

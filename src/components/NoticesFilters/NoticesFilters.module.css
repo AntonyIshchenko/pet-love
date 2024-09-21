@@ -93,6 +93,143 @@
   display: block;
 }
 
+div.selectContainer {
+  width: calc((100% - 12px) / 2);
+  height: 42px;
+}
+
+div.inputContainer {
+  width: 100%;
+  height: 42px;
+}
+
+div.selectControl {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border-radius: 30px;
+  background: var(--color-white);
+  border: 1px solid var(--color-white);
+  outline: none;
+  box-shadow: none;
+}
+
+div.selectControl:hover,
+div.selectControl:focus-within {
+  border-color: var(--color-main);
+}
+
+div.selectValueContainer {
+  padding: 0;
+}
+
+div.singleValue {
+  position: relative;
+  padding-left: 12px;
+  margin: 0;
+  cursor: pointer;
+
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: var(--color-black);
+}
+
+div.singleValuePlaceholder {
+  color: var(--color-placeholder);
+}
+
+div.dropdownIndicator {
+  padding: 12px;
+  fill: transparent;
+  stroke: var(--color-black);
+  cursor: pointer;
+}
+
+div.selectControl:hover div.dropdownIndicator {
+  stroke: var(--color-main);
+}
+
+div.selectControl:focus-within div.dropdownIndicator {
+  stroke: var(--color-main);
+  transform: rotate(180deg);
+}
+
+div.clearIndicator {
+  padding: 12px;
+  fill: transparent;
+  stroke: var(--color-black);
+  cursor: pointer;
+}
+
+div.clearIndicator:hover {
+  stroke: var(--color-main);
+}
+
+div.inputInput {
+  margin: 0;
+  padding: 0 12px;
+}
+
+div.menu {
+  margin-top: 4px;
+  padding: 12px 6px 12px 12px;
+  margin-bottom: 0;
+  border-radius: 15px;
+  background: var(--color-white);
+  overflow: hidden;
+  box-shadow: none;
+}
+
+div.menuList {
+  padding: 0;
+  max-height: 216px;
+}
+
+div.menuList::-webkit-scrollbar {
+  background: rgba(38, 38, 38, 0.08);
+  width: 8px;
+  border-radius: 13px;
+}
+
+/* Handle */
+div.menuList::-webkit-scrollbar-thumb {
+  background: var(--color-main);
+  border-radius: 13px;
+}
+
+/* Handle on hover */
+div.menuList::-webkit-scrollbar-thumb:hover {
+  background: var(--color-main-active);
+}
+
+div.option {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  text-transform: capitalize;
+  color: rgba(38, 38, 38, 0.6);
+  padding: 0;
+  margin-bottom: 8px;
+  background-color: transparent;
+}
+
+div.option:last-child {
+  margin-bottom: 0;
+}
+
+div.optionSelected {
+  color: var(--color-main);
+}
+
+div.option:hover {
+  background-color: var(--color-back);
+}
+
 @media (min-width: 768px) {
   .form {
     padding: 40px 32px;
@@ -121,11 +258,48 @@
     padding: 14px;
     gap: 8px;
   }
+
+  div.selectContainer {
+    width: 170px;
+    height: 48px;
+  }
+
+  div.singleValue {
+    padding-left: 14px;
+    font-size: 16px;
+    line-height: 125%;
+  }
+
+  div.inputInput {
+    padding: 0 14px;
+  }
+
+  div.dropdownIndicator {
+    padding: 14px;
+  }
+
+  div.menu {
+    padding: 14px 7px 14px 14px;
+  }
+  div.option {
+    font-size: 16px;
+    line-height: 125%;
+  }
+
+  div.inputContainer {
+    width: 265px;
+    height: 48px;
+  }
 }
 
 @media (min-width: 1280px) {
   .form {
     padding: 40px;
     margin-top: 40px;
+  }
+
+  div.selectContainer {
+    width: 200px;
+    height: 48px;
   }
 }
