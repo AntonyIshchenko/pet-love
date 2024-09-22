@@ -9,6 +9,7 @@ import NoticesList from '@components/NoticesList/NoticesList';
 import NoticesFilters from '@components/NoticesFilters/NoticesFilters';
 import sortingUtils from '@utils/filtersSorting';
 import { filtersChangedType } from '@types-all/filtersChangedType';
+import { FiltersStateType } from '@types-all/filtersStateType';
 
 function Notices() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -118,7 +119,7 @@ function Notices() {
 
   // console.log(data);
 
-  const filtersState = useMemo(
+  const filtersState: FiltersStateType = useMemo(
     () => ({ keyword, category, species, locationId, sorting }),
     [keyword, category, species, locationId, sorting]
   );

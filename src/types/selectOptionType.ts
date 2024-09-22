@@ -1,6 +1,6 @@
-type selectOptionType = {
+type SelectOptionType = {
   value: string;
   label: string;
 };
 
-export type { selectOptionType };
+export type { SelectOptionType };

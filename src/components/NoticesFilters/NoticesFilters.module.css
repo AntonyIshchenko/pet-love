@@ -66,7 +66,7 @@
   font-size: 14px;
   line-height: 129%;
   letter-spacing: -0.03em;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 
   cursor: pointer;
 
@@ -130,7 +130,7 @@ div.singleValue {
   margin: 0;
   cursor: pointer;
 
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   font-weight: 500;
   font-size: 14px;
   line-height: 129%;
@@ -211,7 +211,7 @@ div.option {
   font-size: 14px;
   line-height: 129%;
   letter-spacing: -0.03em;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   color: rgba(38, 38, 38, 0.6);
   padding: 0;
   margin-bottom: 8px;
@@ -228,6 +228,10 @@ div.optionSelected {
 
 div.option:hover {
   background-color: var(--color-back);
+}
+
+.optionMatched {
+  color: var(--color-black);
 }
 
 @media (min-width: 768px) {
