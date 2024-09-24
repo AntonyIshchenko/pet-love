@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Select, {
   SingleValue,
@@ -18,8 +18,10 @@ import type { FiltersStateType } from '@types-all/filtersStateType';
 import css from './NoticesFilters.module.css';
 import Icon from '@components/Icon/Icon';
 import { isSingleValue } from '@utils/selectTypesGuard';
-import { commonSelectors } from '@redux/common';
+import { commonActions, commonSelectors } from '@redux/common';
 import stringOperations from '@utils/stringOperations';
+import { useDispatch } from 'react-redux';
+import { getState } from '@redux/store';
 
 type Props = {
   filtersState: FiltersStateType;
@@ -37,7 +39,10 @@ const inputClassNames: ClassNamesConfig<SelectOptionType> = {
   menu: () => css.menu,
   menuList: () => css.menuList,
   option: (state: OptionProps<SelectOptionType>) =>
-    `${css.option} ${state.isSelected ? css.optionSelected : ''}`,
+    `${css.option} ${state.isSelected ? css.optionSelected : ''} ${
+      state.isFocused ? css.optionFocused : ''
+    }`,
+  noOptionsMessage: () => css.noOption,
 };
 
 const SingleValueLocations = (props: SingleValueProps<SelectOptionType>) => {
@@ -51,7 +56,9 @@ const SingleValueLocations = (props: SingleValueProps<SelectOptionType>) => {
 const ClearIndicator = (props: ClearIndicatorProps<SelectOptionType>) => {
   return (
     <components.ClearIndicator {...props}>
-      <Icon name="x" width={12} height={12} />
+      <button type="button" className={css.clearIndicatorBtn}>
+        <Icon name="x" width={12} height={12} />
+      </button>
     </components.ClearIndicator>
   );
 };
@@ -81,48 +88,68 @@ function NoticesFilters_LocationFilter({
   filtersState,
   onChangeFilters,
 }: Props) {
-  const citiesList = useSelector(commonSelectors.cities);
+  const dispatch = useDispatch();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const [location, setLocation] = useState<SelectOptionType | null>(null);
+  const citiesList = useSelector(commonSelectors.filteredCities);
+  const isCitiesFetched = useSelector(commonSelectors.isCitiesFetched);
+
+  const [location, setLocation] = useState<SelectOptionType | null>(() => {
+    const city = getState().common.cities.find(
+      (item) => item.id === filtersState.locationId
+    );
+
+    return city ? { value: city.id, label: city.name } : null;
+  });
+
   const [inputText, setInputText] = useState(location?.label || '');
-  const [search, setSearch] = useState(location?.label || '');
 
   const citiesOptions: SelectOptionType[] = useMemo(
-    () =>
-      search.trim().length < 3
-        ? []
-        : [
-            ...citiesList
-              .filter((item) =>
-                item.name.toLowerCase().includes(search.toLowerCase())
-              )
-              .map((item) => ({
-                value: item.id,
-                label: item.name,
-              })),
-          ],
-    [search, citiesList]
+    () => [
+      ...citiesList.map((item) => ({
+        value: item.id,
+        label: item.name,
+      })),
+    ],
+    [citiesList]
   );
 
-  const debounced = useDebouncedCallback((value) => setSearch(value), 500);
+  const debounced = useDebouncedCallback(
+    (value) => dispatch(commonActions.setCityFilter(value)),
+    500
+  );
+
+  const debouncedInput = useDebouncedCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, 100);
 
   useEffect(() => {
-    if (!citiesList.length || !filtersState.locationId) return;
+    if (!isCitiesFetched || !filtersState.locationId) return;
 
-    const city = citiesList.find((item) => item.id === filtersState.locationId);
+    const city = getState().common.cities.find(
+      (item) => item.id === filtersState.locationId
+    );
+
     if (city) {
       setInputText(city.name);
-      setSearch(city.name);
+      dispatch(commonActions.setCityFilter(city.name));
       setLocation({ value: city.id, label: city.name });
-    } else {
-      setInputText('');
-      setSearch('');
-      setLocation(null);
     }
-  }, [citiesList, filtersState.locationId]);
+  }, [isCitiesFetched, filtersState.locationId, dispatch]);
+
+  useEffect(() => {
+    const inputElem = document.querySelector(
+      '#filter-location-input'
+    ) as HTMLInputElement | null;
+
+    if (inputElem) inputRef.current = inputElem;
+  }, []);
 
   const handleInputChange = (text: string) => {
     setInputText(text);
+
     debounced(text);
   };
 
@@ -131,12 +158,14 @@ function NoticesFilters_LocationFilter({
   ) => {
     if (isSingleValue(selected)) {
       setInputText(selected?.label || '');
-      setSearch(selected?.label || '');
+      dispatch(commonActions.setCityFilter(selected?.label || ''));
       setLocation(selected);
       onChangeFilters({ locationId: selected?.value || '' });
+
+      debouncedInput();
     } else {
       setInputText('');
-      setSearch('');
+      dispatch(commonActions.setCityFilter(''));
       setLocation(null);
       onChangeFilters({ locationId: '' });
     }
@@ -146,7 +175,8 @@ function NoticesFilters_LocationFilter({
     <>
       <Select
         value={location}
-        inputValue={inputText}
+        inputId="filter-location-input"
+        inputValue={inputText || location?.label || ''}
         components={{
           ClearIndicator,
           Option: OptionLocation,
@@ -161,8 +191,9 @@ function NoticesFilters_LocationFilter({
         options={citiesOptions}
         isMulti={false}
         isSearchable={true}
-        filterOption={null}
+        blurInputOnSelect={true}
         isClearable
+        noOptionsMessage={() => `No options (please type min 3 symbols)`}
       />
     </>
   );

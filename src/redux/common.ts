@@ -1,9 +1,12 @@
 import { RootState } from '@redux/store';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
+
 import type { cityType } from '@types-all/cityType';
 
 type CommonSlice = {
   isModalOpen: boolean;
+  cityFilter: string;
+  filteredCities: cityType[];
   cities: cityType[];
   categories: string[];
   species: string[];
@@ -11,7 +14,9 @@ type CommonSlice = {
 
 const initialState: CommonSlice = {
   isModalOpen: false,
+  cityFilter: '',
   cities: [],
+  filteredCities: [],
   categories: [],
   species: [],
 };
@@ -26,13 +31,38 @@ const slice = createSlice({
     closeModal: (state) => {
       state.isModalOpen = false;
     },
+    setCityFilter: (state, action) => {
+      const search = action.payload.trim().toLowerCase();
+
+      let filteredCities: cityType[];
+
+      if (search.length >= 3) {
+        const curState = current(state);
+        const toFilter =
+          curState.cityFilter &&
+          search.includes(curState.cityFilter.toLowerCase())
+            ? curState.filteredCities
+            : curState.cities;
+
+        filteredCities = [
+          ...toFilter.filter((item) =>
+            item.name.toLowerCase().includes(search)
+          ),
+        ];
+      } else {
+        filteredCities = [];
+      }
+
+      state.filteredCities = filteredCities;
+      state.cityFilter = action.payload;
+    },
     setCities: (state, action) => {
-      state.cities = action.payload.map(
-        (item: { _id: string; stateEn: string; cityEn: string }) => ({
+      state.cities = action.payload
+        .map((item: { _id: string; stateEn: string; cityEn: string }) => ({
           id: item._id,
           name: `${item.stateEn}, ${item.cityEn}`,
-        })
-      );
+        }))
+        .toSorted((a: cityType, b: cityType) => a.name.localeCompare(b.name));
     },
     setCategories: (state, action) => {
       state.categories = action.payload;
@@ -49,6 +79,8 @@ export const commonSelectors = {
   isOpenModal: (state: RootState) => state.common.isModalOpen,
   categories: (state: RootState) => state.common.categories,
   cities: (state: RootState) => state.common.cities,
+  cityFilter: (state: RootState) => state.common.cityFilter,
+  filteredCities: (state: RootState) => state.common.filteredCities,
   species: (state: RootState) => state.common.species,
   isCategoriesFetched: (state: RootState) => state.common.categories.length > 0,
   isCitiesFetched: (state: RootState) => state.common.cities.length > 0,
