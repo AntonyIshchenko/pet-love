@@ -5,6 +5,8 @@ import type { cityType } from '@types-all/cityType';
 
 type CommonSlice = {
   isModalOpen: boolean;
+  modalContent: string;
+  modalClasses: { overlay: string; content: string };
   cityFilter: string;
   filteredCities: cityType[];
   cities: cityType[];
@@ -14,6 +16,8 @@ type CommonSlice = {
 
 const initialState: CommonSlice = {
   isModalOpen: false,
+  modalContent: '',
+  modalClasses: { overlay: '', content: '' },
   cityFilter: '',
   cities: [],
   filteredCities: [],
@@ -25,11 +29,15 @@ const slice = createSlice({
   name: 'common',
   initialState,
   reducers: {
-    openModal: (state) => {
+    openModal: (state, action) => {
       state.isModalOpen = true;
+      state.modalContent = action.payload.content;
+      state.modalClasses = action.payload.classes;
     },
     closeModal: (state) => {
       state.isModalOpen = false;
+      state.modalContent = '';
+      state.modalClasses = initialState.modalClasses;
     },
     setCityFilter: (state, action) => {
       const search = action.payload.trim().toLowerCase();
@@ -77,6 +85,8 @@ export const commonReducer = slice.reducer;
 export const commonActions = slice.actions;
 export const commonSelectors = {
   isOpenModal: (state: RootState) => state.common.isModalOpen,
+  modalContent: (state: RootState) => state.common.modalContent,
+  modalClasses: (state: RootState) => state.common.modalClasses,
   categories: (state: RootState) => state.common.categories,
   cities: (state: RootState) => state.common.cities,
   cityFilter: (state: RootState) => state.common.cityFilter,

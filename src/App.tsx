@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import Modal from 'react-modal';
 
 import Header from '@components/Header/Header';
 import Layout from '@components/Layout/Layout';
@@ -13,6 +14,9 @@ import {
 } from '@utils/api';
 import { useSelector } from 'react-redux';
 import { commonActions, commonSelectors } from '@redux/common';
+import clsx from 'clsx';
+
+Modal.setAppElement('#root');
 
 const HomePage = lazy(() => import('@pages/Home/Home'));
 const NewsPage = lazy(() => import('@pages/News/News'));
@@ -29,6 +33,9 @@ function App() {
   const isCategoriesFetched = useSelector(commonSelectors.isCategoriesFetched);
   const isCitiesFetched = useSelector(commonSelectors.isCitiesFetched);
   const isSpeciesFetched = useSelector(commonSelectors.isSpeciesFetched);
+  const isOpenModal = useSelector(commonSelectors.isOpenModal);
+  const modalContent = useSelector(commonSelectors.modalContent);
+  const modalClasses = useSelector(commonSelectors.modalClasses);
 
   const [
     triggerGetCategories,
@@ -103,6 +110,14 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
+        <Modal
+          isOpen={isOpenModal}
+          onRequestClose={() => dispatch(commonActions.closeModal())}
+          className={clsx('modal', modalClasses.content)}
+          overlayClassName={clsx('overlay', modalClasses.overlay)}
+        >
+          {modalContent}
+        </Modal>
       </Layout>
     </>
   );

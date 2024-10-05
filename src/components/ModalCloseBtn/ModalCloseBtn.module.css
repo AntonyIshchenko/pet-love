@@ -1,0 +1,33 @@
+.btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+
+  transition: transform var(--animation-cubicBezier),
+    stroke var(--animation-cubicBezier);
+}
+
+.btn:hover,
+.btn:focus {
+  transform: scale(1.1);
+}
+
+.blackBtn {
+  stroke: var(--color-black);
+}
+
+.blackBtn:hover,
+.blackBtn:focus {
+  stroke: var(--color-main);
+}
+
+.whiteBtn {
+  stroke: var(--color-white);
+}
+
+.whiteBtn:hover,
+.whiteBtn:focus {
+  stroke: var(--color-back-active);
+}

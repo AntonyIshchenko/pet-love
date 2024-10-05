@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 
 import Nav from '@components/Nav/Nav';
@@ -9,8 +10,11 @@ import Icon from '@components/Icon/Icon';
 import useMediaType from '@types-all/useMediaType';
 import useMedia from '@hooks/useMedia';
 import useHomePageLocation from '@hooks/useHomePageLocation';
+import ModalMenu from '@components/ModalMenu/ModalMenu';
+import { commonActions } from '@redux/common';
 
 function Header() {
+  const dispatch = useDispatch();
   const { isMobile, isDesktop }: useMediaType = useMedia();
   const isHomePage: boolean = useHomePageLocation();
 
@@ -37,6 +41,20 @@ function Header() {
                 css.menuBtn,
                 css[`menuBtn${isHomePage ? 'White' : 'Black'}`]
               )}
+              onClick={() =>
+                dispatch(
+                  commonActions.openModal({
+                    content: <ModalMenu />,
+                    classes: {
+                      content: clsx(
+                        css.modalContent,
+                        isHomePage && css.modalContentHome
+                      ),
+                      overlay: css.modalOverlay,
+                    },
+                  })
+                )
+              }
             >
               <Icon name={'menu'} width={menuSize} height={menuSize} />
             </button>

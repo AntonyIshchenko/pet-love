@@ -58,6 +58,25 @@
   stroke: var(--color-main-active);
 }
 
+div.modalOverlay {
+  justify-content: right;
+}
+
+div.modalContent {
+  width: 218px;
+  height: 100%;
+  padding: 29vh 20px 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-main);
+}
+
+div.modalContentHome {
+  background-color: var(--color-white);
+}
+
 @media (min-width: 768px) {
   .container {
     max-width: 768px;
@@ -76,6 +95,12 @@
 
   .rightNav {
     gap: 18px;
+  }
+
+  div.modalContent {
+    width: 374px;
+
+    /* background-color: var(--color-main); */
   }
 }
 
