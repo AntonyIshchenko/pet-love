@@ -1,0 +1,93 @@
+.container {
+  width: 466px;
+  max-width: 335px;
+
+  padding: 40px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.imgContainer {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  background: url(../../images/dog-icon.png) center/ 44px 44px no-repeat,
+    radial-gradient(var(--color-back), var(--color-back));
+}
+
+.heading {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+  color: var(--color-main);
+}
+
+.text {
+  margin-bottom: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--color-black);
+}
+
+.linkContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 30px;
+  width: 140px;
+  max-width: 132px;
+  height: 42px;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: var(--color-main);
+  background-color: var(--color-back);
+
+  transition: color var(--animation-cubicBezier),
+    background-color var(--animation-cubicBezier);
+}
+
+.link:hover {
+  background-color: var(--color-back-active);
+}
+
+.link:focus {
+  background: var(--color-main);
+  color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 466px;
+    padding: 60px;
+  }
+
+  .heading {
+    font-size: 24px;
+    line-height: 117%;
+  }
+
+  .text {
+    margin-bottom: 8px;
+  }
+
+  .link {
+    max-width: 140px;
+    height: 48px;
+  }
+}

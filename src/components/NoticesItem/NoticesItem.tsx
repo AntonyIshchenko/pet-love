@@ -1,6 +1,9 @@
 import Icon from '@components/Icon/Icon';
 import css from './NoticesItem.module.css';
 import noticesItemType from '@types-all/noticesItemType';
+import { useDispatch } from 'react-redux';
+import { commonActions } from '@redux/common';
+import ModalAttention from '@components/ModalAttention/ModalAttention';
 
 type Props = {
   item: noticesItemType;
@@ -12,8 +15,12 @@ type FeatureProps = {
 };
 
 function NoticesItem({ item }: Props) {
+  const dispatch = useDispatch();
+
   const birthday =
     (item.birthday && item.birthday.split('-').reverse().join('.')) || '';
+
+  const isLogged = false;
 
   return (
     <li className={css.listItem}>
@@ -38,10 +45,32 @@ function NoticesItem({ item }: Props) {
       </div>
       <p className={css.comment}>{item.comment}</p>
       <div className={css.btnContainer}>
-        <button className={css.learnBtn} type="button">
+        <button
+          className={css.learnBtn}
+          type="button"
+          onClick={
+            isLogged
+              ? () => {}
+              : () =>
+                  dispatch(
+                    commonActions.openModal({ content: <ModalAttention /> })
+                  )
+          }
+        >
           Learn more
         </button>
-        <button className={css.favoriteBtn} type="button">
+        <button
+          className={css.favoriteBtn}
+          type="button"
+          onClick={
+            isLogged
+              ? () => {}
+              : () =>
+                  dispatch(
+                    commonActions.openModal({ content: <ModalAttention /> })
+                  )
+          }
+        >
           <Icon name="heart-contour" width={18} height={18} />
         </button>
       </div>
