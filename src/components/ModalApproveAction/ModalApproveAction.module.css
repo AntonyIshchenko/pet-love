@@ -1,7 +1,85 @@
+.container {
+  width: 100vw;
+  max-width: 335px;
+  height: 270px;
+  padding: 40px 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.text {
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+  color: var(--color-black);
+}
+
+.btnContainer {
+  display: flex;
+  gap: 8px;
+}
+
 .imgContainer {
   width: 80px;
   height: 80px;
   border-radius: 100%;
-  background: var(--color-back),
-    url(../../images/cat-icon.png) center 44px 44px no-repeat;
+  background: url(../../images/cat-icon.png) center/ 44px 44px no-repeat,
+    radial-gradient(var(--color-back), var(--color-back));
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 30px;
+  width: 140px;
+  max-width: 132px;
+  height: 42px;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: var(--color-black);
+
+  background: var(--color-pagination-disable-border);
+
+  transition: color var(--animation-cubicBezier),
+    background-color var(--animation-cubicBezier);
+}
+
+.btn:hover {
+  background: var(--color-back-active);
+}
+
+.btn:focus {
+  background: var(--color-main);
+  color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 448px;
+    height: 364px;
+    padding: 80px;
+  }
+
+  .text {
+    font-size: 24px;
+    line-height: 117%;
+  }
+
+  .btn {
+    max-width: 140px;
+    height: 48px;
+
+    font-size: 14px;
+    line-height: 129%;
+  }
 }

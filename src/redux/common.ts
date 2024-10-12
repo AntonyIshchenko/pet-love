@@ -17,7 +17,7 @@ type CommonSlice = {
 const initialState: CommonSlice = {
   isModalOpen: false,
   modalContent: '',
-  modalClasses: { overlay: '', content: '' },
+  modalClasses: { overlay: '', content: 'modalBase' },
   cityFilter: '',
   cities: [],
   filteredCities: [],
@@ -32,7 +32,12 @@ const slice = createSlice({
     openModal: (state, action) => {
       state.isModalOpen = true;
       state.modalContent = action.payload.content;
-      state.modalClasses = action.payload.classes;
+      state.modalClasses =
+        (action.payload.classes && {
+          ...initialState.modalClasses,
+          ...action.payload.classes,
+        }) ||
+        initialState.modalClasses;
     },
     closeModal: (state) => {
       state.isModalOpen = false;
